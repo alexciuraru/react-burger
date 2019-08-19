@@ -3,16 +3,6 @@ import React from 'react';
 import classes from './Order.css';
 
 const Order = (props) => {
-    // let transformedIngredients = Object.keys(props.ingredients)
-    //     .map(igKey => {
-    //         console.log(igKey);
-    //         return [...Array(props.ingredients[igKey])].map((_, i) => {
-    //             return <span key={igKey + i}><span style={{textTransform: 'capitalize'}}>{igKey}</span> <span>({props.ingredients[igKey]})</span> </span>
-    //         })
-    //     })
-    //     .reduce((arr, el) => {
-    //         return arr.concat(el);
-    //     }, []);
 
     let transformedIngredients = [];
 
@@ -22,7 +12,6 @@ const Order = (props) => {
             amount: props.ingredients[ingredientName]
         });
     }
-    console.log(transformedIngredients);
 
     return (
         <div className={classes.Order}>

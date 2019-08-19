@@ -1,38 +1,42 @@
-import React, {Component} from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 
 import Aux from '../../hoc/Aux';
 import classes from './Layout.css';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
 
-class Layout extends Component {
-    state = {
-        showSideDrawer: false
-    }
+const Layout = props => {
+    const [sideDrawerIsVisible, setSideDrawerIsVisible] = useState(false);
 
-    sideDrawerCloseHandler = () => {
-        this.setState({showSideDrawer: false});
+    const sideDrawerCloseHandler = () => {
+        setSideDrawerIsVisible(false);
     }
     
-    sideDrawertoggleHandler = () => {
-        this.setState((prevState) => {
-            return {showSideDrawer: !prevState.showSideDrawer}
-        });
+    const sideDrawertoggleHandler = () => {
+        setSideDrawerIsVisible(!sideDrawerIsVisible);
     }
 
-    render() {
-        return (
-            <Aux>
-                <Toolbar 
-                    toggle={this.sideDrawertoggleHandler} />
-                <SideDrawer 
-                    open={this.state.showSideDrawer} 
-                    closed={this.sideDrawerCloseHandler} />
-                <main className={classes.Content}>
-                    {this.props.children}
-                </main>
-            </Aux>
-    )};
+    return (
+        <Aux>
+            <Toolbar 
+                isAuth={props.isAuth}
+                toggle={sideDrawertoggleHandler} />
+            <SideDrawer 
+                isAuth={props.isAuth}
+                open={sideDrawerIsVisible} 
+                closed={sideDrawerCloseHandler} />
+            <main className={classes.Content}>
+                {props.children}
+            </main>
+        </Aux>
+    );
 };
 
-export default Layout;
+const mapStateToProps = state => {
+    return {
+        isAuth: state.auth.token !== null
+    }
+};
+
+export default connect(mapStateToProps)(Layout);
