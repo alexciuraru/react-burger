@@ -48,8 +48,8 @@ const Auth = props => {
     const {buldingBurger, authRedirectPath, onSetAuthRedirectPath} = props;
     
     useEffect(() => {
-        if(!props.buldingBurger && props.authRedirectPath !== '/') {
-            props.onSetAuthRedirectPath();
+        if(!buldingBurger && authRedirectPath !== '/') {
+            onSetAuthRedirectPath();
         }
     }, [buldingBurger, authRedirectPath, onSetAuthRedirectPath]);
 
